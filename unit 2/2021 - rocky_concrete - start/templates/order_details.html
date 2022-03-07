@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block mainContent %}
+<h4>Order Details</h4>
+<p>Details for Order: {{odetails[0]['order_no']}}, ordered on: {{odetails[0]['order_date']}}</p>
+<div>
+    <table class ='table'>
+        <tr>
+            <th>Product Code</th>
+            <th>Description</th>
+            <th>Order Qty</th>
+            <th>Order Price</th>
+            <th>Total</th>
+        </tr>
+        {% for row in odetails %}
+        <tr>
+            <td>{{row['prod_code']}}</td>
+            <td>{{row['description']}}</td>
+            <td>{{row['order_qty']}}</td>
+            <td>{{row['order_price']}}</td>
+            <td style="text-align: right;">{{row['total']}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5" style="text-align: right;">{{order_total['order total']}}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

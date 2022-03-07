@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block mainContent %}
+<h4>Details for {{cdetails['cust_name']}}</h4>
+<h6>{{cdetails['cust_no']}}</h6>
+<hr>
+<p>{{cdetails['street']}}<br>
+{{cdetails['town']}} {{cdetails['post_code']}}</p>
+
+<p>Credit Limit: ${{cdetails['cr_limit']}}<br>
+    Current Balance: <strong>${{cdetails['curr_bal']}}</strong>
+</p>
+
+<div>
+<h4>Order Summary</h4>
+    <p>Total Number of Orders Made: {{order_count['order count']}}</p>
+    <p>Last Order: {{order_count['last order']}}</p>
+    <p>Total of Orders: ${{order_count['total orders']}}</p></div>
+
+<div>
+    <h4>List of Orders</h4>
+    {% if order_h|length > 0 %}
+    <table class ='table'>
+        <tr>
+            <th>Order Number</th>
+            <th>Order Date</th>
+        </tr>
+
+        {% for row in order_h %}
+        <tr>
+            <td><a href="/order_details?oid={{row['order_no']}}">{{row['order_no']}}</a></td>
+            <td>{{row['order_date']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No Orders Made By Customer</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% block mainContent %}
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if session['userid'] %}
+    <div class="row">
+        <div class="col">
+        <h2>Welcome to the home page</h2>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if session['userid'] %}
+    {% if session['staffcode'] %}
+    <div class="row">
+        <div class="col">
+        <h2>Staff video</h2>
+        </div>
+    </div>
+    <div>
+    <table class ='table'>
+        <tr>
+            <th>Video url</th>
+            <th>Topic</th>
+            <th>Subject</th>
+            <th>Description</th>
+        </tr>
+        {% for row in staffresults %}
+        <tr>
+            <td>{{row['videourl']}}</td>
+            <td>{{row['topic']}}</td>
+            <td>{{row['subject']}}</td>
+            <td>{{row['description']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+    {% if session['isstudent'] %}
+    <div class="row">
+        <div class="col">
+        <h2>Videos</h2>
+        </div>
+    </div>
+    <div>
+    <table class ='table'>
+        <tr>
+            <th>Video url</th>
+            <th>Topic</th>
+            <th>Subject</th>
+            <th>Description</th>
+        </tr>
+        {% for row in video %}
+        <tr>
+            <td>{{row['videourl']}}</td>
+            <td>{{row['topic']}}</td>
+            <td>{{row['subject']}}</td>
+            <td>{{row['description']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+    {% endif %}
+
+<a class="btn btn-primary" href="/submit" role="button">Submit Video</a>
+{% if session['staffcode'] %}
+<a class="btn btn-primary" href="/approve" role="button">Approve Video</a>
+{% endif %}
+</div>
+{% endblock %}
